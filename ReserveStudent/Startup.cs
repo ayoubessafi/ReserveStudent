@@ -27,9 +27,12 @@ namespace ReserveStudent
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            /*            services.AddDbContext<ApplicationDbContext>(options =>
+                            options.UseSqlServer(
+                                Configuration.GetConnectionString("DefaultConnection")));*/
+
+            string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContextPool<ApplicationDbContext>(options => options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
