@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ReserveStudent.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,5 +13,6 @@ namespace ReserveStudent.Data
             : base(options)
         {
         }
+        public DbSet<Student> Students { get; set; }
     }
 }
