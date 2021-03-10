@@ -14,5 +14,7 @@ namespace ReserveStudent.Data
         {
         }
         public DbSet<Student> Students { get; set; }
+        public DbSet<ReservationType> ReservationTypes { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
     }
 }
