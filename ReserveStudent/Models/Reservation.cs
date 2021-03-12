@@ -18,5 +18,6 @@ namespace ReserveStudent.Models
         public ReservationType ReservationType { get; set; }
         public int ReservationTypeId { get; set; }
         public DateTime Date { get; set; }
+        public bool Status { get; set; }
     }
 }
