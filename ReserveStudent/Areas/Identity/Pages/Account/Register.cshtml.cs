@@ -25,6 +25,7 @@ namespace ReserveStudent.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -40,7 +41,7 @@ namespace ReserveStudent.Areas.Identity.Pages.Account
 
         [BindProperty]
         public InputModel Input { get; set; }
-        List<SelectListItem> promotions = new List<SelectListItem>();
+
         public string ReturnUrl { get; set; }
 
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
@@ -78,16 +79,14 @@ namespace ReserveStudent.Areas.Identity.Pages.Account
         
         }
 
-        public async Task OnGetAsync(string returnUrl = null, List<SelectListItem> promotions=null)
+        public async Task OnGetAsync(string returnUrl = null)
         {
-            promotions = new List<SelectListItem>();
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null, List<SelectListItem> promotions = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            promotions = new List<SelectListItem>();
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
