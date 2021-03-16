@@ -61,9 +61,9 @@ namespace ReserveStudent.Areas.Identity.Pages.Account
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
 
-            [Required]
+/*            [Required]
             [Display(Name = "Promotion")]
-            public string Promotion { get; set; }
+            public string Promotion { get; set; }*/
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -91,7 +91,7 @@ namespace ReserveStudent.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new Student { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, Promotion = Input.Promotion };
+                var user = new Student { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName/*, Promotion = Input.Promotion*/ };
            
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
