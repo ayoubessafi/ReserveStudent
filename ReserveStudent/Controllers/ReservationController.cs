@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,12 +23,25 @@ namespace ReserveStudent.Controllers
             _reservationTypeRepo = reservationTypeRepo;
             _userManager = userManager;
         }
-
+        [Authorize]
         // GET: ReservationController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var reservation = _reservationRepo.GetAll().OrderBy(x=>x.RequestingStudent.Count);
-            return View(reservation);
+            var user = await _userManager.GetUserAsync(User);
+
+            if (User.IsInRole("Admin"))
+            {
+                var reservation = _reservationRepo.GetAll().OrderBy(x => x.RequestingStudent.Count);
+                return View(reservation);
+            }
+            else
+            {
+                var reservation = _reservationRepo.GetAll().Where(r => r.RequestingStudentId == user.Id);
+                return View(reservation);
+
+            }
+
+           
         }
 
         // GET: ReservationController/Details/5

@@ -47,9 +47,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.RequestingStudent.LastName)
             </td>
-@*            <td>
-                @Html.DisplayFor(modelItem => item.RequestingStudent.Promotion)
-            </td>*@
+            @*            <td>
+            @Html.DisplayFor(modelItem => item.RequestingStudent.Promotion)
+        </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.ReservationType.Name)
             </td>
@@ -62,12 +62,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
 
-            <td>
+                    <a asp-action="Review" asp-route-id="@item.Id">Review</a>
 
-                <a asp-action="Review" asp-route-id="@item.Id">Review</a>
+                </td>
 
-            </td>
+            }
+            else
+            {
+
+            }
+
         </tr>
 }
     </tbody>
