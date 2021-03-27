@@ -4,13 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">Reservation</h1>
 
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
-<table class="table">
-    <thead>
+@if (User.IsInRole("Admin"))
+{
+}
+else
+{
+    <p>
+        <a class="btn btn-primary mr-2" asp-action="Create">Create New</a>
+    </p>
+}
+
+<table id="myTable" class="table table-condensed">
+    <thead class="bg-dark text-white">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.RequestingStudent.FirstName)
@@ -18,9 +25,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.RequestingStudent.LastName)
             </th>
-@*            <th>
-                @Html.DisplayNameFor(model => model.RequestingStudent.Promotion)
-            </th>*@
+            @*            <th>
+            @Html.DisplayNameFor(model => model.RequestingStudent.Promotion)
+        </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.ReservationType.Name)
             </th>
@@ -34,49 +41,71 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
-
-            <th></th>
+            @if (User.IsInRole("Admin")) {
+                <th>Review</th>
+            }
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequestingStudent.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequestingStudent.LastName)
-            </td>
-            @*            <td>
-            @Html.DisplayFor(modelItem => item.RequestingStudent.Promotion)
-        </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.ReservationType.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReservationType.Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            @if (User.IsInRole("Admin"))
-            {
+        @foreach (var item in Model)
+        {
+            <tr>
                 <td>
-
-                    <a asp-action="Review" asp-route-id="@item.Id">Review</a>
-
+                    @Html.DisplayFor(modelItem => item.RequestingStudent.FirstName)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestingStudent.LastName)
+                </td>
+                @*            <td>
+                        @Html.DisplayFor(modelItem => item.RequestingStudent.Promotion)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReservationType.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
 
-            }
-            else
-            {
+                        <a asp-action="Review" asp-route-id="@item.Id">Review</a>
 
-            }
+                    </td>
 
-        </tr>
-}
+                }
+                else
+                {
+
+                }
+
+            </tr>
+        }
     </tbody>
 </table>
+
+@if (User.IsInRole("Admin")) { 
+    @section scripts{
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#myTable').DataTable({
+                    //"searching": false,   // Search Box will Be Disabled
+
+                    "ordering": false,    // Ordering (Sorting on Each Column)will Be Disabled
+
+                    "info": false,         // Will show "1 to n of n entries" Text at bottom
+
+                    //"lengthChange": false // Will Disabled Record number per page
+
+                    //"dom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>'
+                });
+            });
+        </script>
+    }
+}
