@@ -137,13 +137,6 @@ namespace ReserveStudent.Controllers
                     ReservationTypeId=model.ReservationTypeId
 
                 };
-                /*var reservation = new Reservation
-                {
-                    Date=reservationVM.Date,
-                    RequestingStudentId=reservationVM.RequestingStudentId,
-                    ReservationTypeId=reservationVM.ReservationTypeId,
-                    Status=reservationVM.Status,
-                };*/
                 var isSuccuss = _reservationRepo.Create(reservation);
                 if (!isSuccuss)
                 {
