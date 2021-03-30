@@ -66,7 +66,7 @@ else
                     @Html.DisplayFor(modelItem => item.ReservationType.Number)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Date)
+                    @item.Date.ToShortDateString()
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
