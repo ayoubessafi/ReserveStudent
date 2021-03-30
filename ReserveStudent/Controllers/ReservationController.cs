@@ -16,8 +16,8 @@ namespace ReserveStudent.Controllers
     {
         private readonly IReservationRepository _reservationRepo;
         private readonly IReservationTypeRepository _reservationTypeRepo;
-        private readonly UserManager<IdentityUser> _userManager;
-        public ReservationController(IReservationRepository reservationRepo, IReservationTypeRepository reservationTypeRepo, UserManager<IdentityUser> userManager)
+        private readonly UserManager<Student> _userManager;
+        public ReservationController(IReservationRepository reservationRepo, IReservationTypeRepository reservationTypeRepo, UserManager<Student> userManager)
         {
             _reservationRepo = reservationRepo;
             _reservationTypeRepo = reservationTypeRepo;

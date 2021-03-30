@@ -13,10 +13,10 @@ namespace ReserveStudent.Controllers
     [Authorize(Roles = "Admin")]
     public class UserRoleManagementController : Controller
     {
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<Student> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public UserRoleManagementController(UserManager<IdentityUser> userManager,
+        public UserRoleManagementController(UserManager<Student> userManager,
                                             RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
